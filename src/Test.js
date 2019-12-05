@@ -1,23 +1,28 @@
 import React, {Component} from "react";
 import 'isomorphic-fetch';
+import {Button} from "react-bootstrap";
 
-export default class HomePage extends Component {
+export default class Hello extends Component {
     constructor(props, context) {
         super(props, context);
-        this.state = {}
+        this.state = {
+            score: 0
+        }
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
         let summoner = await (await fetch('http://localhost:8090/lol/summoner?name=Gllory')).json();
-        console.log(summoner.score);
-        this.setState({summoner})
-    }
+        this.setState({
+            score: summoner.score
+        })
+    };
 
     render() {
+        console.log(this.state);
         return (
             <div>
                 <h1>League of Legends</h1>
-                <h2>{this.state.score}</h2>
+                <Button>{this.state.score}</Button>
             </div>
         )
     }
